@@ -1,5 +1,7 @@
 // 產品資料格式
 
+import bootstrapJs from './node_modules/bootstrap/dist/js/bootstrap';
+
 let products = [
     {
       category: "甜甜圈",
