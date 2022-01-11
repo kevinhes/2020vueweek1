@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一週作業 lv3</title>
+    <link rel="stylesheet" href="/style/all.css">
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <h1 class="text-center py-3">產品列表</h1>
+            <ul class="row list-unstyled d-flex">
+                <li class="col-4" v-for="(item, index) in products" :key="index">
+                    <div class="card">
+                        <img :src="item.imageUrl" class="card-img-top" :alt="item.title">
+                        <div class="card-body">
+                            <h5 class="card-title">{{item.title}}</h5>
+                            <p class="card-text">{{item.description}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="card-text mb-0">原價 <span>{{item.origin_price}} / </span> <span>特價{{item.price}} 元</span></p>
+                                <div class="d-flex">
+                                    <span class="btn btn-outline-success btn-sm me-3">{{item.is_enabled?"啟用" : "未啟用"}}</span>
+                                    <input type="button" value="查看細節" class="btn btn-primary btn-sm d-block" @click="checkDetail(item)"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <img :src="temp.imageUrl" :alt="temp.title" :title="temp.title" class="col-6">
+                            <div class="col-6">
+                                <h4 class="mb-4">{{temp.title}}<span class="bg-primary text-white fs-6 py-1 px-2 rounded-3 ms-3">{{temp.category}}</span></h4>
+                                <p>{{temp.description}}</p>
+                                <p>{{temp.content}}</p>
+                                <p class="mb-4">原價 <span>{{temp.origin_price}} 元</span> / <span>特價{{temp.price}} 元</span></p>
+                                <p>剩餘數量：{{temp.num}}{{temp.unit}}</p>
+                                <div class="d-flex">
+                                    <template v-for="(item, index) in temp.imagesUrl" :key="index">
+                                        <div class="me-3">
+                                            <img :src="item" :alt="temp.title" class="modal-img" >
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="./all.js"></script>
+</body>
+</html>
